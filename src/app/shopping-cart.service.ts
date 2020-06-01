@@ -5,7 +5,7 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { map } from 'rxjs/operators/map';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,13 @@ export class ShoppingCartService {
     );
   }
 
-    async getCart():Promise<AngularFireObject<ShoppingCart>>{
+    async getCart():Promise<Observable<ShoppingCart>>{
     //FirebaseObjectObservable is deprecated
     let cartId = await this.getOrCreateCartId();
-    return this.db.object('/shopping-carts/' + cartId);
+    return this.db.object('/shopping-carts/' + cartId).valueChanges()
+    .pipe(map((x: ShoppingCart) => new ShoppingCart(x.items)));
+    //snapshotChanges()
+    //.pipe(map(x => new ShoppingCart(x.payload.exportVal().items)));;
   }
 
   private async getOrCreateCartId(): Promise<string>{

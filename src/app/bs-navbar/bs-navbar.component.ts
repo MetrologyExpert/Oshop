@@ -13,8 +13,7 @@ import { AngularFireObject } from '@angular/fire/database/database';
 })
 export class BsNavbarComponent implements OnInit {
   user$: Observable<firebase.User>;
-  shoppingCartItemCount:number;
-  cart$: Observable<any>;
+  cart$: Observable<ShoppingCart>;
 
   constructor(private afAuth: AngularFireAuth, private shoppingCartService: ShoppingCartService ) {
     
@@ -23,16 +22,7 @@ export class BsNavbarComponent implements OnInit {
 async ngOnInit(){
   this.user$ = this.afAuth.authState;
   
-  let cart$ = await this.shoppingCartService.getCart();
-
-      cart$.valueChanges().subscribe(cart => { 
-        this.shoppingCartItemCount=0;
-
-        for (let productId in cart.items){
-        this.shoppingCartItemCount += cart.items[productId].quantity;
-
-      }
-      });
+  this.cart$ = await this.shoppingCartService.getCart();
 }
 
 

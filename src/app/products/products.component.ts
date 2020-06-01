@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators/map';
 import { Subscription } from 'rxjs/Subscription';
 
 
@@ -44,7 +45,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   
     async ngOnInit(){
 
-      this.subscription = (await this.shoppingCartService.getCart()).valueChanges().subscribe(cart => this.cart = cart);
+      this.subscription = await (await this.shoppingCartService.getCart()).subscribe(cart => this.cart = cart);
 
     }
 
