@@ -1,7 +1,7 @@
 import { Product } from 'src/app/models/product';
 
 export interface ShoppingCartItem {
-    product: any;
+    product: Product;
     quantity: number;
 
 

@@ -24,11 +24,15 @@ async ngOnInit(){
   this.user$ = this.afAuth.authState;
   
   let cart$ = await this.shoppingCartService.getCart();
-    //  cart$.subscribe(cart => {
-    //    this.shoppingCartItemCount = 0;
-    //    for (let productId in cart.items) {
-    //      this.shoppingCartItemCount += cart.items[productId].quantity;}});
-    // console.log(this.shoppingCartItemCount);
+
+      cart$.valueChanges().subscribe(cart => { 
+        this.shoppingCartItemCount=0;
+
+        for (let productId in cart.items){
+        this.shoppingCartItemCount += cart.items[productId].quantity;
+
+      }
+      });
 }
 
 
