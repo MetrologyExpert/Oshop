@@ -7,10 +7,12 @@ items: ShoppingCartItem[] = [];
 
 constructor(public itemsMap: {[productId:string]: ShoppingCartItem }) {
   for (let productId in itemsMap)
-    this.items.push(itemsMap[productId]);
-}
+   {
+     let item = itemsMap[productId];
+     this.items.push(new ShoppingCartItem(item.product, item.quantity));
 
- 
+   }
+}
 
   get totalItemsCount() {
     let count=0;
