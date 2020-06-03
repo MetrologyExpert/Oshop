@@ -21,19 +21,19 @@ export class ProductService {
       return this.db.list('/products/').push(product);
     }
 
-    getAll() {
+    //getAll() {
      //return  this.db.list<Product>('/products/').valueChanges().subscribe((values)=>{ values.forEach((value)=> this.products)});;
-      return this.db.list<Product>('/products').snapshotChanges();
-      
-    };
+     //return this.db.list<Product>('/products');
+    //};
 
-    // getAllx(){
-    //   return this.db.list('/products').snapshotChanges()
-    //     .pipe(
-    //       map(actions =>
-    //         actions.map(a => <Product>{}
-    //           )));
-    //}
+    getAll() {
+      return this.db.list<Product>('/products').snapshotChanges()
+        .pipe(
+          map(actions =>
+            actions.map(a => ({ key: a.key, ...a.payload.val() }))
+          )
+        );
+    }
 
     getProduct(productId) {
       return this.db.object('/products/' + productId);
