@@ -10,7 +10,7 @@ export class ShoppingCartItem {
 
     get totalPrice() {
 
-        return  this.quantity*this.product.price ;
+        return  this.quantity ;
     }
 
 

@@ -16,7 +16,7 @@
     [resizable] = "true"
     >
     <ng-template #dataTableCell let-item="item" >
-        {{item.payload.val().title }}
+        {{item.title }}
     </ng-template>
     </data-table-column>
 
@@ -27,7 +27,7 @@
     [resizable] = "true"
     >
     <ng-template #dataTableCell let-item="item" >
-        {{item.payload.val().price | currency:'USD': true }}
+        {{item.price | currency:'USD': true }}
     </ng-template>
     </data-table-column>
 
@@ -56,8 +56,8 @@
          </thead>
          <tbody>
             <tr *ngFor="let p of filteredProducts">
-                <td>{{ p.payload.val().title }}</td>
-                <td>{{ p.payload.val().price }}</td>
+                <td>{{ p.title }}</td>
+                <td>{{ p.price }}</td>
                 <td>
                     <a [routerLink]="['/admin/products/', p.key]">Edit</a>
                 </td>

@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class ProductsComponent implements OnInit, OnDestroy {
-  products: any[] = [];
+  products: Product[] = [];
   filteredProducts: any[] = [];
   cart: any;
   category: string;
@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
           {
               this.category = params.get('category');
               this.filteredProducts = (this.category) ? 
-              this.products.filter(p => p.payload.val().category === this.category) :
+              this.products.filter(p => p.category === this.category) :
               this.products;
               //console.log(this.filteredProducts);
           });

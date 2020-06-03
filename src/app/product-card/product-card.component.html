@@ -1,9 +1,9 @@
 <div class="card">
-    <img class="card-img-top" src= {{product.payload.val().imageUrl}}  alt="{{product.payload.val().img.name}">
+    <img class="card-img-top" src= {{product.imageUrl}}  alt="{{product.img.name}">
     <div class="card-body">
-      <h5 class="card-title">{{product.payload.val().title}}</h5>
-      <p class="card-text">{{product.payload.val().price | currency:'USD' :true }}</p>
-      <p class="card-text">{{product.payload.val().category }}</p>
+      <h5 class="card-title">{{product.title}}</h5>
+      <p class="card-text">{{product.price | currency:'USD' :true }}</p>
+      <p class="card-text">{{product.category }}</p>
     </div>
     <div class="card-footer"> 
    <button  
