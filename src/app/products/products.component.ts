@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
-  filteredProducts: any[] = [];
+  filteredProducts: Product[] = [];
   cart: any;
   category: string;
   subscription: Subscription;

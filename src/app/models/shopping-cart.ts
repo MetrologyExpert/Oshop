@@ -10,7 +10,7 @@ constructor(public itemsMap: {[productId:string]: ShoppingCartItem }) {
   for (let productId in itemsMap)
    {
      let item = itemsMap[productId];
-     console.log(itemsMap[productId]);
+     console.log(itemsMap[productId].product);
      this.items.push(new ShoppingCartItem(item.product, item.quantity));
 
    }

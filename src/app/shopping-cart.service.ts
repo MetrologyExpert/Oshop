@@ -21,20 +21,13 @@ export class ShoppingCartService {
     );
   }
 
-    async getCart():Promise<Observable<ShoppingCart>>{
+
+  async getCart():Promise<Observable<ShoppingCart>>{
     //FirebaseObjectObservable is deprecated
     let cartId = await this.getOrCreateCartId();
     
-    return this.db.object('/shopping-carts/' + cartId).
-    snapshotChanges()
-    .pipe(map((items) => new ShoppingCart(items.payload.child('/items').exportVal())))
-    
-    //valueChanges().pipe(map((shoppingCart: {items: {[productId: string]: ShoppingCartItem}}) => new ShoppingCart(shoppingCart.items)));
-
-    //map((shoppingCart: ShoppingCart) => new ShoppingCart(shoppingCart.items)));
-    //.pipe(map((x: ShoppingCart) => new ShoppingCart(x.items)));
-
-    //.pipe(map(x => new ShoppingCart(x.payload.exportVal().items)));
+    return this.db.object('/shopping-carts/' + cartId)
+    .valueChanges().pipe(map((shoppingCart: {items: {[productId: string]: ShoppingCartItem}}) => new ShoppingCart(shoppingCart.items)));
   }
 
   private async getOrCreateCartId(): Promise<string>{

@@ -9,7 +9,7 @@ import { ShoppingCart } from '../models/shopping-cart';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent  {
-@Input('product') product: any;
+@Input('product') product: Product;
 @Input('shopping-cart') shoppingCart: ShoppingCart;
 
 
@@ -27,7 +27,7 @@ export class ProductCardComponent  {
   getQuantity() {
     if(!this.shoppingCart) return 0;
 
-     let item = this.shoppingCart.itemsMap[this.product.key]
+     let item = this.shoppingCart.itemsMap[this.product.$key]
     return item ? item.quantity: 0;
     }
 
