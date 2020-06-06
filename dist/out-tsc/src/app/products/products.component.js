@@ -13,14 +13,14 @@ let ProductsComponent = class ProductsComponent {
             .subscribe(params => {
             this.category = params.get('category');
             this.filteredProducts = (this.category) ?
-                this.products.filter(p => p.payload.val().category === this.category) :
+                this.products.filter(p => p.category === this.category) :
                 this.products;
-            console.log(this.filteredProducts);
+            //console.log(this.filteredProducts);
         });
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
-            (yield this.shoppingCartService.getCart()).subscribe(cart => this.cart = cart);
+            this.subscription = (yield this.shoppingCartService.getCart()).subscribe(cart => this.cart = cart);
         });
     }
     ngOnDestroy() {

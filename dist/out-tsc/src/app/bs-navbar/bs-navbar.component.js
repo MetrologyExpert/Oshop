@@ -8,14 +8,7 @@ let BsNavbarComponent = class BsNavbarComponent {
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
             this.user$ = this.afAuth.authState;
-            let cart$ = yield this.shoppingCartService.getCart();
-            cart$.subscribe(cart => {
-                this.shoppingCartItemCount = 0;
-                for (let productId in cart.items) {
-                    this.shoppingCartItemCount += cart.items[productId].quantity;
-                }
-            });
-            console.log(this.shoppingCartItemCount);
+            this.cart$ = yield this.shoppingCartService.getCart();
         });
     }
     logout() {

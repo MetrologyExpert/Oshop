@@ -21,13 +21,13 @@ export class ShoppingCartService {
     );
   }
 
-
   async getCart():Promise<Observable<ShoppingCart>>{
     //FirebaseObjectObservable is deprecated
     let cartId = await this.getOrCreateCartId();
-    
-    return this.db.object('/shopping-carts/' + cartId)
-    .valueChanges().pipe(map((shoppingCart: {items: {[productId: string]: ShoppingCartItem}}) => new ShoppingCart(shoppingCart.items)));
+    return this.db.object('/shopping-carts/' + cartId).
+    snapshotChanges()
+    .pipe(map((items) => new ShoppingCart(items.payload.child('/items').exportVal())));
+    //.valueChanges().pipe(map((cart: {items: {[productId: string]: ShoppingCartItem}}) => new ShoppingCart(cart.items)));
   }
 
   private async getOrCreateCartId(): Promise<string>{
@@ -44,24 +44,27 @@ export class ShoppingCartService {
   }
 
   async addToCart(product: Product){
-   this.updateItemQuantity(product, 1);
+   this.updateItem(product, 1);
   }
 
   async removeFromCart(product: Product){
-    this.updateItemQuantity(product, -1);
+    this.updateItem(product, -1);
   }
 
   
 
-private async updateItemQuantity(product: any, change: number)
-{ let cartId = await this.getOrCreateCartId();
-  let item$ = this.getItem(cartId,product.key);
-       item$.snapshotChanges().pipe(take(1)).subscribe((item) => {           
-       item$.update({quantity:(item.payload.child("quantity").exportVal()|| 0) + change });
-      });
+ private async updateItem(product: any, change: number)
+ { let cartId = await this.getOrCreateCartId();
+   let item$ = this.getItem(cartId,product.key);
+        item$.snapshotChanges().pipe(take(1)).subscribe((item) => {           
+        item$.update({
+          title: product.title,
+          imageUrl: product.imageUrl,
+          price: product.price,
 
+          quantity:(item.payload.child("quantity").exportVal()|| 0) + change });
+       });
 
-}
-
+    }
 }
   

@@ -16,8 +16,10 @@ let ShoppingCartService = class ShoppingCartService {
         return __awaiter(this, void 0, void 0, function* () {
             //FirebaseObjectObservable is deprecated
             let cartId = yield this.getOrCreateCartId();
-            return this.db.object('/shopping-carts/' + cartId).snapshotChanges()
-                .pipe(map(x => new ShoppingCart(x.payload.exportVal().items)));
+            return this.db.object('/shopping-carts/' + cartId).
+                snapshotChanges()
+                .pipe(map((items) => new ShoppingCart(items.payload.child('/items').exportVal())));
+            //.valueChanges().pipe(map((cart: {items: {[productId: string]: ShoppingCartItem}}) => new ShoppingCart(cart.items)));
         });
     }
     getOrCreateCartId() {
@@ -35,20 +37,25 @@ let ShoppingCartService = class ShoppingCartService {
     }
     addToCart(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.updateItemQuantity(product, 1);
+            this.updateItem(product, 1);
         });
     }
     removeFromCart(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.updateItemQuantity(product, -1);
+            this.updateItem(product, -1);
         });
     }
-    updateItemQuantity(product, change) {
+    updateItem(product, change) {
         return __awaiter(this, void 0, void 0, function* () {
             let cartId = yield this.getOrCreateCartId();
             let item$ = this.getItem(cartId, product.key);
             item$.snapshotChanges().pipe(take(1)).subscribe((item) => {
-                item$.update({ quantity: (item.payload.child("quantity").exportVal() || 0) + change });
+                item$.update({
+                    title: product.title,
+                    imageUrl: product.imageUrl,
+                    price: product.price,
+                    quantity: (item.payload.child("quantity").exportVal() || 0) + change
+                });
             });
         });
     }

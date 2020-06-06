@@ -15,7 +15,7 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private shoppingcartService: ShoppingCartService) { }
 
   async ngOnInit() {
-    this.cart$ = await (await this.shoppingcartService.getCart());
+    this.cart$ = await this.shoppingcartService.getCart();
   }
 
 }

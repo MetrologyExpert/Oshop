@@ -30,6 +30,7 @@ import { ShoppingCartService } from './shopping-cart.service';
 import { FormsModule } from '@angular/forms';
 import { ProductsFilterComponent } from './products/products-filter/products-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -48,6 +49,7 @@ AppModule = __decorate([
             ProductFormComponent,
             ProductsFilterComponent,
             ProductCardComponent,
+            ProductQuantityComponent,
         ],
         imports: [
             BrowserModule,

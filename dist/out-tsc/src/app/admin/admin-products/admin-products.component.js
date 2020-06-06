@@ -26,7 +26,7 @@ let AdminProductsComponent = class AdminProductsComponent {
     filter(query) {
         console.log(query);
         this.filteredProducts = (query) ?
-            this.products = this.products.filter(product => product.payload.val().title.toLowerCase().includes(query.toLowerCase())) :
+            this.products = this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase())) :
             this.products;
         this.InitialiazeTable(this.filteredProducts);
     }

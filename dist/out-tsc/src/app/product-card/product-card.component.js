@@ -4,17 +4,8 @@ let ProductCardComponent = class ProductCardComponent {
     constructor(cartService) {
         this.cartService = cartService;
     }
-    addToCart(product) {
-        this.cartService.addToCart(product);
-    }
-    removeFromCart(product) {
-        this.cartService.removeFromCart(product);
-    }
-    getQuantity(product) {
-        if (!this.shoppingCart)
-            return 0;
-        let item = this.shoppingCart.items[product.key];
-        return item ? item.quantity : 0;
+    addToCart() {
+        this.cartService.addToCart(this.product);
     }
 };
 __decorate([
