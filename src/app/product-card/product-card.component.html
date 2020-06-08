@@ -1,10 +1,10 @@
 <div class="card">
     <img class="card-img-top" src= {{product.imageUrl}}  alt="{{product.img.name}">
     <div class="card-body">
-      <h5 class="card-title">{{product.title}}</h5>
-      <p class="card-text">{{product.price |currency:"USD":"symbol"}}
+      <h5 class="card-title">{{ product.title }}</h5>
+      <p class="card-text">{{ product.price |currency:"USD":"symbol" }}
       </p>
-      <p class="card-text">{{product.category }}</p>
+      <p class="card-text">{{ product.category }}</p>
     </div>
     <div *ngIf="shoppingCart" class="card-footer"> 
    <button  

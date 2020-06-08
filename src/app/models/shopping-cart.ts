@@ -10,6 +10,7 @@ constructor(public itemsMap: {[productId:string]: ShoppingCartItem }) {
   for (let productId in itemsMap)
    {
      let item = itemsMap[productId];
+     console.log(new ShoppingCartItem({...item, $key: productId}));
      this.items.push(new ShoppingCartItem({...item, $key: productId}));
 
    }
@@ -24,14 +25,15 @@ get totalPrice() {
 
   get totalItemsCount() {
     let count=0;
-    for (let productId in this.itemsMap)
+    for (let productId in this.itemsMap){
+   // console.log("item",this.itemsMap[productId].title);
     count += this.itemsMap[productId].quantity;
+    }
     return count;
   }
 
   getQuantity(product: any ) {    
-     console.log("product:", product);
-    // console.log("item",this.itemsMap);
+     //console.log("product:", product);
      let item = this.itemsMap[product.key]
     return item ? item.quantity: 0;
     }
