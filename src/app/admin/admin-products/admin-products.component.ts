@@ -13,7 +13,7 @@ import { DataTableResource } from 'angular5-data-table';
 })
 export class AdminProductsComponent implements OnDestroy{
 
-  products: Product[];
+  products: any[];
   filteredProducts: any[];
   subscription: Subscription;
   tableResource: DataTableResource<any>;
@@ -51,10 +51,7 @@ export class AdminProductsComponent implements OnDestroy{
     this.filteredProducts=(query) ? 
     this.products =  this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase())) :
     this.products;
-
     this.InitialiazeTable(this.filteredProducts);
-
-
    }
   
 
