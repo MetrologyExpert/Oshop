@@ -1,5 +1,6 @@
 
 
+
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { RouterModule } from '@angular/router';
@@ -27,8 +28,10 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 //Ng B Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //Category Service
+import { AuthService } from './auth.service';
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
+import { OrderService } from './order.service';
 import { ShoppingCartService } from './shopping-cart.service'
 
 import { FormsModule } from '@angular/forms';
@@ -82,8 +85,10 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ]),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [CategoryService,
+  providers: [AuthService,
+              CategoryService,
               ProductService,
+              OrderService,
               ShoppingCartService],
   bootstrap: [AppComponent]
 })
