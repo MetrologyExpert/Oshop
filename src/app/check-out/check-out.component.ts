@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { ShoppingCartService } from './../shopping-cart.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingCart } from '../models/shopping-cart';
+import { Order } from '../models/order';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'check-out',
@@ -11,13 +14,14 @@ import { ShoppingCart } from '../models/shopping-cart';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit, OnDestroy { 
-  shipping = {}; 
+  shipping :any = {}; 
   cart: ShoppingCart;
   userId: string;
   cartSubscription: Subscription;
   userSubscription: Subscription;
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private orderService: OrderService,
     private shoppingCartService:ShoppingCartService) {
@@ -26,35 +30,19 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     let cart$ = await this.shoppingCartService.getCart();
-    this.cartSubscription = cart$.subscribe(cart => this.cart = cart);
-    this.authService.user$.subscribe(user => this.userId = user.uid)
+    this.cartSubscription = cart$.subscribe(cart => {this.cart = cart});
+    this.userSubscription =  this.authService.user$.subscribe(user => { this.userId = user.uid});
   }
 
   ngOnDestroy() {
     this.cartSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
-  placeOrder() {
-    let order = {
-      userId: this.userId,
-      datePlaced: new Date().getTime(),
-      shipping: this.shipping, 
-      items: this.cart.items.map( i => {
-        return {
-          product: {
-            title: i.title,
-            imageUrl: i.imageUrl,
-            price: i.price
-          },
-          quantity: i.quantity,
-          totalPrice: i.totalPrice,
-
-        }
-      })
-    }
-
-    this.orderService.storeOrder(order);
-
-    console.log(this.shipping);
-  }    
+  async placeOrder() {
+    let order = new Order(this.userId, this.shipping, this.cart); 
+    let result = await  this.orderService.placeOrder(order);
+    this.router.navigate(['/order-success', result.key]);
+    console.log(order);
+  }  
 }

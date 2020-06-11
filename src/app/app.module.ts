@@ -4,6 +4,8 @@
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { RouterModule } from '@angular/router';
+import * as firebase from 'firebase/app';
+
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -29,6 +31,7 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //Category Service
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
 import { OrderService } from './order.service';
@@ -38,6 +41,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductsFilterComponent } from './products/products-filter/products-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 
 
 @NgModule({
@@ -56,6 +60,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductsFilterComponent,
     ProductCardComponent,
     ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
 
   ],
   imports: [
@@ -73,7 +78,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
       {path: 'products', component: ProductsComponent},
       {path: 'check-out', component: CheckOutComponent},
       {path: 'my/orders', component:MyOrdersComponent},
-      {path: 'order-success', component:OrderSuccessComponent},
+      {path: 'order-success/:id', component:OrderSuccessComponent},
       {path: 'login', component: LoginComponent}, 
 
       {path: 'admin/products/new', component: ProductFormComponent},
@@ -86,6 +91,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [AuthService,
+              UserService,
               CategoryService,
               ProductService,
               OrderService,

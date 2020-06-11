@@ -2,10 +2,6 @@ import { Product } from 'src/app/models/product';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { kStringMaxLength } from 'buffer';
-import { stringify } from 'querystring';
-import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 
 
 @Injectable({

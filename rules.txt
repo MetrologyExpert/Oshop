@@ -1,0 +1,26 @@
+public partial class Form1 : Form
+{
+    public Form1()
+    {
+        InitializeComponent();
+        this.dataGridView1.CellClick += new DataGridViewCellEventHandler(dataGridView1_CellClick);
+    }
+ 
+    void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            return;
+ 
+        string id, name, price, desc, quan;
+        id = dataGridView1.Rows[e.RowIndex].Cells[0].Value + "";
+        name = dataGridView1.Rows[e.RowIndex].Cells[1].Value + "";
+        price = dataGridView1.Rows[e.RowIndex].Cells[2].Value + "";
+        desc = dataGridView1.Rows[e.RowIndex].Cells[3].Value + "";
+        quan = dataGridView1.Rows[e.RowIndex].Cells[4].Value + "";
+        txtID.Text = id;
+        txtName.Text = name;
+        txtPrice.Text = price;
+        txtDesc.Text = desc;
+        txtQuan.Text = quan; 
+    }
+}
